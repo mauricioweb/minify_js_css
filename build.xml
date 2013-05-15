@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<project name="cvonline" basedir="." default="all">
+    <!-- Deploy app -->
+    
+    <target name="all" depends="css.minify" />
+    
+    
+    <target name="css.minify">
+	<mkdir dir="assets/css" />
+	<concat destfile="assets/css/combined.css">
+	 <fileset dir="." includes="**/*.css" />
+	</concat>
+        <apply executable="java" parallel="false">
+            <fileset dir="." includes="**/*.css"/>
+            <arg line="-jar"/>
+            <arg path="yuicompressor-2.4.7.jar"/>
+            <arg line="--line-break 0 -v"/>
+            <srcfile/>
+            <arg line="-o"/>
+            <mapper type="glob" from="*.css" to="*-min.css"/>
+            <targetfile/>
+        </apply>
+    </target>
+        
+</project>
+
+
